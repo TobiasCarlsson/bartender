@@ -19,6 +19,7 @@
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
 int test = 4;
 int right = 2;
 int left = 3;
@@ -119,8 +120,11 @@ void makeDrink(int num){
     digitalWrite(relay5, 0);
 
     break;
-    case 5: // Gin and tonic
-
+    case 5: // Preparing
+    display.clearDisplay();
+    display.setCursor(5, 24);
+    display.println("Preparing..");
+    display.display();
     digitalWrite(relay4, 1);
     digitalWrite(relay5, 1);
     delay(5000);
@@ -237,7 +241,7 @@ void loop() {
 
     case 5:
       display.clearDisplay();
-      display.println("Case 5");
+      display.println("Prepare");
       display.display();
       delay(rtime);
       // statements
