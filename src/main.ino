@@ -125,12 +125,39 @@ void makeDrink(int num){
     display.setCursor(5, 24);
     display.println("Preparing..");
     display.display();
+    digitalWrite(relay1, 1);
+    delay(100);
+    digitalWrite(relay2, 1);
+    delay(100);
+    digitalWrite(relay3, 1);
+    delay(3000);
+    digitalWrite(relay1, 0);
+    delay(100);
+    digitalWrite(relay2, 0);
+    delay(100);
+    digitalWrite(relay3, 0);
+    delay(100);
+
     digitalWrite(relay4, 1);
+    delay(100);
     digitalWrite(relay5, 1);
-    delay(5000);
+    delay(100);
+    digitalWrite(relay6, 1);
+    delay(3000);
     digitalWrite(relay4, 0);
-    delay(5000);
+    delay(100);
     digitalWrite(relay5, 0);
+    delay(100);
+    digitalWrite(relay6, 0);
+
+    digitalWrite(relay7, 1);
+    delay(100);
+    digitalWrite(relay8, 1);
+    delay(3000);
+    digitalWrite(relay8, 0);
+    delay(100);
+    digitalWrite(relay7, 0);
+    delay(100);
 
     break;
     case 6: //clean mode
