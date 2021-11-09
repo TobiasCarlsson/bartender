@@ -73,6 +73,77 @@ void setup() {
   delay(10); 
 
 }
+void clean(){
+  digitalWrite(relay1, 1);
+  delay(100);
+  digitalWrite(relay2, 1);
+  delay(100);
+  digitalWrite(relay3, 1);
+  delay(3000);
+  digitalWrite(relay1, 0);
+  delay(100);
+  digitalWrite(relay2, 0);
+  delay(100);
+  digitalWrite(relay3, 0);
+  delay(100);
+
+  digitalWrite(relay4, 1);
+  delay(100);
+  digitalWrite(relay5, 1);
+  delay(100);
+  digitalWrite(relay6, 1);
+  delay(3000);
+  digitalWrite(relay4, 0);
+  delay(100);
+  digitalWrite(relay5, 0);
+  delay(100);
+  digitalWrite(relay6, 0);
+
+  digitalWrite(relay7, 1);
+  delay(100);
+  digitalWrite(relay8, 1);
+  delay(3000);
+  digitalWrite(relay8, 0);
+  delay(100);
+  digitalWrite(relay7, 0);
+  delay(100);
+}
+
+void flush(){
+  digitalWrite(relay1, 1);
+  delay(100);
+  digitalWrite(relay2, 1);
+  delay(100);
+  digitalWrite(relay3, 1);
+  delay(3000);
+  digitalWrite(relay1, 0);
+  delay(100);
+  digitalWrite(relay2, 0);
+  delay(100);
+  digitalWrite(relay3, 0);
+  delay(100);
+
+  digitalWrite(relay4, 1);
+  delay(100);
+  digitalWrite(relay5, 1);
+  delay(100);
+  digitalWrite(relay6, 1);
+  delay(3000);
+  digitalWrite(relay4, 0);
+  delay(100);
+  digitalWrite(relay5, 0);
+  delay(100);
+  digitalWrite(relay6, 0);
+
+  digitalWrite(relay7, 1);
+  delay(100);
+  digitalWrite(relay8, 1);
+  delay(3000);
+  digitalWrite(relay8, 0);
+  delay(100);
+  digitalWrite(relay7, 0);
+  delay(100);
+}
 
 void makeDrink(int num){
   display.clearDisplay();
@@ -120,44 +191,12 @@ void makeDrink(int num){
     digitalWrite(relay5, 0);
 
     break;
-    case 5: // Preparing
+    case 5: // Flushing
     display.clearDisplay();
     display.setCursor(5, 24);
-    display.println("Preparing..");
+    display.println("Flushing..");
     display.display();
-    digitalWrite(relay1, 1);
-    delay(100);
-    digitalWrite(relay2, 1);
-    delay(100);
-    digitalWrite(relay3, 1);
-    delay(3000);
-    digitalWrite(relay1, 0);
-    delay(100);
-    digitalWrite(relay2, 0);
-    delay(100);
-    digitalWrite(relay3, 0);
-    delay(100);
-
-    digitalWrite(relay4, 1);
-    delay(100);
-    digitalWrite(relay5, 1);
-    delay(100);
-    digitalWrite(relay6, 1);
-    delay(3000);
-    digitalWrite(relay4, 0);
-    delay(100);
-    digitalWrite(relay5, 0);
-    delay(100);
-    digitalWrite(relay6, 0);
-
-    digitalWrite(relay7, 1);
-    delay(100);
-    digitalWrite(relay8, 1);
-    delay(3000);
-    digitalWrite(relay8, 0);
-    delay(100);
-    digitalWrite(relay7, 0);
-    delay(100);
+    flush();
 
     break;
     case 6: //clean mode
@@ -165,40 +204,7 @@ void makeDrink(int num){
     display.setCursor(5, 24);
     display.println("Cleaning..");
     display.display();
-
-    digitalWrite(relay1, 1);
-    delay(100);
-    digitalWrite(relay2, 1);
-    delay(100);
-    digitalWrite(relay3, 1);
-    delay(3000);
-    digitalWrite(relay1, 0);
-    delay(100);
-    digitalWrite(relay2, 0);
-    delay(100);
-    digitalWrite(relay3, 0);
-    delay(100);
-
-    digitalWrite(relay4, 1);
-    delay(100);
-    digitalWrite(relay5, 1);
-    delay(100);
-    digitalWrite(relay6, 1);
-    delay(3000);
-    digitalWrite(relay4, 0);
-    delay(100);
-    digitalWrite(relay5, 0);
-    delay(100);
-    digitalWrite(relay6, 0);
-
-    digitalWrite(relay7, 1);
-    delay(100);
-    digitalWrite(relay8, 1);
-    delay(3000);
-    digitalWrite(relay8, 0);
-    delay(100);
-    digitalWrite(relay7, 0);
-    delay(100);
+    clean();    
     break;
 
     default:
@@ -268,7 +274,7 @@ void loop() {
 
     case 5:
       display.clearDisplay();
-      display.println("Prepare");
+      display.println("Flush");
       display.display();
       delay(rtime);
       // statements
