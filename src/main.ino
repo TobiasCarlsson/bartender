@@ -36,7 +36,7 @@ int relay7 = 14;
 int relay8 = 15;
 
 int rtime = 150;
-int cl = 600;
+int cl = 606;
 
 void setup() {
   pinMode(right, INPUT_PULLUP);
