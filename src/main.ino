@@ -13,6 +13,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_I2CDevice.h>
+#include <Adafruit_NeoPixel.h>
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
@@ -38,7 +39,22 @@ int relay8 = 15;
 int rtime = 150;
 int cl = 606;
 
+
+#define LED_PIN    6
+#define LED_COUNT 60
+
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+
 void setup() {
+  strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
+  strip.show();            // Turn OFF all pixels ASAP
+  strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
+
+  for(int x = 0; x<LED_COUNT; x++) {
+    strip.setPixelColor(x,100,100,0); // Set pixel 'c' to value 'color'
+  }
+  strip.show();
   pinMode(right, INPUT_PULLUP);
   pinMode(left, INPUT_PULLUP);
   pinMode(confirm, INPUT_PULLUP);
@@ -152,7 +168,7 @@ void makeDrink(int num){
   switch(num){
 
     case 1: // Gin and tonic
-
+    rainbow(5);
     digitalWrite(relay1, 1);
     digitalWrite(relay2, 1);
     delay(cl*5);
@@ -360,3 +376,25 @@ void loop() {
 
 }
 */
+void rainbow(int wait) {
+  // Hue of first pixel runs 5 complete loops through the color wheel.
+  // Color wheel has a range of 65536 but it's OK if we roll over, so
+  // just count from 0 to 5*65536. Adding 256 to firstPixelHue each time
+  // means we'll make 5*65536/256 = 1280 passes through this outer loop:
+  for(long firstPixelHue = 0; firstPixelHue < 5*65536; firstPixelHue += 256) {
+    for(int i=0; i<strip.numPixels(); i++) { // For each pixel in strip...
+      // Offset pixel hue by an amount to make one full revolution of the
+      // color wheel (range of 65536) along the length of the strip
+      // (strip.numPixels() steps):
+      int pixelHue = firstPixelHue + (i * 65536L / strip.numPixels());
+      // strip.ColorHSV() can take 1 or 3 arguments: a hue (0 to 65535) or
+      // optionally add saturation and value (brightness) (each 0 to 255).
+      // Here we're using just the single-argument hue variant. The result
+      // is passed through strip.gamma32() to provide 'truer' colors
+      // before assigning to each pixel:
+      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue)));
+    }
+    strip.show(); // Update strip with new contents
+    delay(wait);  // Pause for a moment
+  }
+}
