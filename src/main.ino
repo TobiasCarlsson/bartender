@@ -21,24 +21,22 @@
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-int test = 4;
 int right = 2;
 int left = 3;
 int confirm = 4; 
 int menu = 1;
 
-int relay1 = 8;
-int relay2 = 9;
+int relay1 = 12;
+int relay2 = 11;
 int relay3 = 10;
-int relay4 = 11;
-int relay5 = 12;
-int relay6 = 13;
-int relay7 = 14;
-int relay8 = 15;
+int relay4 = 9;
+int relay5 = 8;
+int relay6 = 7;
+int relay7 = 6;
+int relay8 = 5;
 
 int rtime = 150;
 int cl = 606;
-
 
 #define LED_PIN    6
 #define LED_COUNT 60
@@ -95,7 +93,7 @@ void clean(){
   digitalWrite(relay2, 1);
   delay(100);
   digitalWrite(relay3, 1);
-  delay(3000);
+  delay(5000);
   digitalWrite(relay1, 0);
   delay(100);
   digitalWrite(relay2, 0);
@@ -108,7 +106,7 @@ void clean(){
   digitalWrite(relay5, 1);
   delay(100);
   digitalWrite(relay6, 1);
-  delay(3000);
+  delay(5000);
   digitalWrite(relay4, 0);
   delay(100);
   digitalWrite(relay5, 0);
@@ -118,7 +116,7 @@ void clean(){
   digitalWrite(relay7, 1);
   delay(100);
   digitalWrite(relay8, 1);
-  delay(3000);
+  delay(5000);
   digitalWrite(relay8, 0);
   delay(100);
   digitalWrite(relay7, 0);
@@ -167,34 +165,30 @@ void makeDrink(int num){
   display.display();
   switch(num){
 
-    case 1: // Gin and tonic
+    case 1: // Rom cola
     rainbow(5);
     digitalWrite(relay1, 1);
     digitalWrite(relay2, 1);
-    delay(cl*5);
+    delay(cl*12);
     digitalWrite(relay1, 0);
-    delay(cl*15);
+    delay(cl*12);
     digitalWrite(relay2, 0);
 
     break;
-    case 2: // Gin and tonic
+    case 2: // Daiquiri
 
     digitalWrite(relay2, 1);
     digitalWrite(relay4, 1);
-    delay(cl*5);
+    delay(cl*12);
     digitalWrite(relay2, 0);
-    delay(5000);
+    delay(cl*8);
     digitalWrite(relay4, 0);
 
     break;
-    case 3: // Gin and tonic
-
+    case 3: // 8 shot
     digitalWrite(relay3, 1);
     digitalWrite(relay4, 1);
-    delay(5000);
-    digitalWrite(relay3, 0);
-    delay(5000);
-    digitalWrite(relay4, 0);
+    delay(cl*8);
 
     break;
     case 4: // Gin and tonic
@@ -254,11 +248,11 @@ void loop() {
   
   display.setTextSize(2);
   display.setTextColor(WHITE);
-  display.setCursor(30, 24);
+  display.setCursor(30, 14);
   switch(menu) {
     case 1:
       display.clearDisplay();
-      display.println("Case 1");
+      display.println("R & C");
       display.display();
       delay(rtime);
 
@@ -266,7 +260,7 @@ void loop() {
       break;
     case 2:
       display.clearDisplay();
-      display.println("Case 2");
+      display.println("Daiquiri");
       display.display();
       delay(rtime);
       // statements
@@ -274,7 +268,7 @@ void loop() {
     
     case 3:
       display.clearDisplay();
-      display.println("Case 3");
+      display.println("Rom shot");
       display.display();
       delay(rtime);
       // statements
