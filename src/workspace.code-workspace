@@ -1,7 +1,10 @@
 {
 	"folders": [
 		{
-			"name": "Bartender",
+			"path": "..\\.."
+		},
+		{
+			"name": "bartender",
 			"path": ".."
 		}
 	],

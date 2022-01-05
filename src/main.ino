@@ -1,12 +1,4 @@
 #include <Arduino.h>
-/*********
-  Complete project details at https://randomnerdtutorials.com
-  
-  This is an example for our Monochrome OLEDs based on SSD1306 drivers. Pick one up today in the adafruit shop! ------> http://www.adafruit.com/category/63_98
-  This example is for a 128x32 pixel display using I2C to communicate 3 pins are required to interface (two I2C and one reset).
-  Adafruit invests time and resources providing this open source code, please support Adafruit and open-source hardware by purchasing products from Adafruit!
-  Written by Limor Fried/Ladyada for Adafruit Industries, with contributions from the open source community. BSD license, check license.txt for more information All text above, and the splash screen below must be included in any redistribution. 
-*********/
 
 #include <SPI.h>
 #include <Wire.h>
@@ -50,7 +42,7 @@ void setup() {
   strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
 
   for(int x = 0; x<LED_COUNT; x++) {
-    strip.setPixelColor(x,100,100,0); // Set pixel 'c' to value 'color'
+    strip.setPixelColor(x,0,255,0); // Set pixel 'c' to value 'color'
   }
   strip.show();
   pinMode(right, INPUT_PULLUP);
@@ -75,10 +67,6 @@ void setup() {
   }
   display.clearDisplay();
 
-  // display.display() is NOT necessary after every single drawing command,
-  // unless that's what you want...rather, you can batch up a bunch of
-  // drawing operations and then update the screen all at once by calling
-  // display.display(). These examples demonstrate both approaches...
   display.setTextSize(2);
   display.setTextColor(WHITE);
   display.setCursor(5, 24);
@@ -166,55 +154,67 @@ void makeDrink(int num){
   switch(num){
 
     case 1: // Rom cola
-    rainbow(5);
+    red();
     digitalWrite(relay1, 1);
     digitalWrite(relay2, 1);
     delay(cl*12);
     digitalWrite(relay1, 0);
     delay(cl*12);
     digitalWrite(relay2, 0);
+    green();
 
     break;
-    case 2: // Daiquiri
 
+    case 2: // Daiquiri
+    red();
     digitalWrite(relay2, 1);
-    digitalWrite(relay4, 1);
+    digitalWrite(relay3, 1);
     delay(cl*12);
     digitalWrite(relay2, 0);
     delay(cl*8);
-    digitalWrite(relay4, 0);
+    digitalWrite(relay3, 0);
+    green();
+    break;
+
+    case 3: // 8 shot
+    red();
+    digitalWrite(relay1, 1);
+    delay(cl*8);
+    digitalWrite(relay1, 0);
+    green();
 
     break;
-    case 3: // 8 shot
+
+    case 4: // Gin and tonic
+    red();
     digitalWrite(relay3, 1);
     digitalWrite(relay4, 1);
-    delay(cl*8);
-
-    break;
-    case 4: // Gin and tonic
-
-    digitalWrite(relay4, 1);
-    digitalWrite(relay5, 1);
-    delay(5000);
+    delay(6*cl);
+    digitalWrite(relay3, 0);
+    delay(12*cl);
     digitalWrite(relay4, 0);
-    delay(5000);
-    digitalWrite(relay5, 0);
-
+    green();
     break;
+
     case 5: // Flushing
+    red();
+
     display.clearDisplay();
     display.setCursor(5, 24);
     display.println("Flushing..");
     display.display();
     flush();
-
+    green();
     break;
+
     case 6: //clean mode
+    red();
     display.clearDisplay();
     display.setCursor(5, 24);
     display.println("Cleaning..");
     display.display();
     clean();    
+    green();
     break;
 
     default:
@@ -276,7 +276,7 @@ void loop() {
 
     case 4:
       display.clearDisplay();
-      display.println("Case 4");
+      display.println("GT");
       display.display();
       delay(rtime);
       // statements
@@ -302,9 +302,7 @@ void loop() {
       // statements
       break;
   }
-
 }
-
 
 void testscrolltext(void) {
   display.clearDisplay();
@@ -334,42 +332,27 @@ void testscrolltext(void) {
 }
 
 
-
-
-/*
-
-
-void setup() {
-  // put your setup code here, to run once:
-  pinMode(relay1, OUTPUT);
-  pinMode(relay2, OUTPUT);
-  pinMode(relay3, OUTPUT);
-  pinMode(relay4, OUTPUT);
-  pinMode(relay5, OUTPUT);
-  pinMode(relay6, OUTPUT);
-  pinMode(relay7, OUTPUT);
-  pinMode(relay8, OUTPUT);}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-  digitalWrite(relay1, 1);
-  digitalWrite(relay3, 0);
-  delay(500);
-  digitalWrite(relay2, 1);
-  digitalWrite(relay4, 0);
-  delay(500);
-  digitalWrite(relay3, 1);
-  digitalWrite(relay1, 0);
-  delay(500);
-  digitalWrite(relay4, 1);
-  digitalWrite(relay2, 0);
-  delay(500);
-  digitalWrite(relay5, 1);
-  digitalWrite(relay4, 0);
-  delay(500);
+void red() {
+  for(int i = 0; i < strip.numPixels(); i++){
+    strip.setPixelColor(i, strip.Color(255, 0, 0));
+  }
+  strip.show();
 
 }
-*/
+void green() {
+  for(int i = 0; i < strip.numPixels(); i++){
+    strip.setPixelColor(i, strip.Color(0, 255, 0));
+  }
+  strip.show();
+
+}
+void blue() {
+  for(int i = 0; i < strip.numPixels(); i++){
+    strip.setPixelColor(i, strip.Color(0, 0, 255));
+  }
+  strip.show();
+
+}
 void rainbow(int wait) {
   // Hue of first pixel runs 5 complete loops through the color wheel.
   // Color wheel has a range of 65536 but it's OK if we roll over, so
